@@ -20,8 +20,14 @@ async def clapper():
         await bot.get_channel(channel_id).send(clap * 2)
     elif hour == minute or hour == minute[::-1]:
         await bot.get_channel(channel_id).send(clap)
+        await bot.get_channel(channel_id).send(
+            "I clapped because it's: " + current_time
+        )
     elif minute == "00":
         await bot.get_channel(channel_id).send(clap)
+        await bot.get_channel(channel_id).send(
+            "I clapped because it's: " + current_time
+        )
 
 
 @bot.event
@@ -29,4 +35,4 @@ async def on_ready():
     await clapper.start()
 
 
-bot.run("MTIxMjgzOTcyNjE0MzM4MTU4NQ.GaoMf1.MfcjmTjSuVtMnjCaShP4iCnRfkCj-sRvSYmqhw")
+bot.run("")
