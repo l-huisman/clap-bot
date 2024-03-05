@@ -43,6 +43,7 @@ async def shame_sender(self, user_id, message):
         self.shame_message_id = message.id
     return
 
+
 async def remove_shame(message):
     await message.delete()
 
@@ -62,15 +63,14 @@ async def on_message(message):
         return
     times_to_clap = await check_for_clap_amount()
     if times_to_clap == 0:
-        await shame_sender(message.author.id, message)
+        await shame_sender(user_id=message.author.id, message=message)
 
-# Check if a messsage has been deleted
 
 @bot.event
 async def on_message_delete(message):
     if message.channel.id != channel_id:
         return
-    await shame_sender(message.author.id, message)
+    await remove_shame(message)
 
 
 @bot.event
