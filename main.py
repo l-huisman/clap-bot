@@ -1,11 +1,14 @@
 import discord
 from discord.ext import commands, tasks
 from datetime import datetime
+import os
 
 bot = commands.Bot(intents=discord.Intents.all(), command_prefix="")
 
+token = os.environ.get("bot_token")
+channel_id = os.environ.get("channel_id")
+
 clap = ":clap_tone5:"
-channel_id = 726154801955602532
 shame_message_id = 0
 
 
@@ -78,4 +81,4 @@ async def on_ready():
     await clapper.start()
 
 
-bot.run("")
+bot.run(token)
