@@ -82,8 +82,7 @@ class ClappyBoy(commands.Bot):
         times_to_clap = await self.check_for_clap_amount()
         if times_to_clap == 0:
             await self.shame_sender(message.author.id, message)
-        if message.content.lower().contains(self.clap_message):
-            await self.shame_sender(message.author.id, message)
+        # Check if the message has the clap emoji
 
     async def on_message_delete(self, message):
         if message.channel.id != channel_id:
