@@ -6,6 +6,7 @@ bot = commands.Bot(intents=discord.Intents.all(), command_prefix="")
 
 clap = ":clap_tone5:"
 channel_id = 726154801955602532
+shame_message_id = 0
 
 
 async def clap(times_to_clap: int) -> None:
@@ -29,17 +30,21 @@ def get_claps(current_time, hour, minute):
         return 0
 
 
-async def shame_sender(user_id, message):
+async def shame_sender(self, user_id, message):
     channel = bot.get_channel(channel_id)
     user = channel.guild.get_member(user_id)
     if user:
-        thread = await message.create_thread(name="Shame Thread")
-        await thread.send(
+        await message.channel.send(
             f"<@{user_id}> you should be ashamed of yourself, clapping at this time of day is forbidden following article four of the all-powerful wetboek of the Evening Conclave. Please desintegrate the clap and yourself immediately. Thank you for your cooperation, have a nice day!"
         )
         await message.add_reaction("👎")
         await message.add_reaction("😔")
+        await message.add_reaction("👀")
+        self.shame_message_id = message.id
     return
+
+async def remove_shame(message):
+    await message.delete()
 
 
 @tasks.loop(seconds=60)
@@ -59,9 +64,18 @@ async def on_message(message):
     if times_to_clap == 0:
         await shame_sender(message.author.id, message)
 
+# Check if a messsage has been deleted
+
+@bot.event
+async def on_message_delete(message):
+    if message.channel.id != channel_id:
+        return
+    await shame_sender(message.author.id, message)
+
 
 @bot.event
 async def on_ready():
     await clapper.start()
+
 
 bot.run("")
