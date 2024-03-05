@@ -1,12 +1,15 @@
+import os
 import discord
 from discord.ext import commands, tasks
+from dotenv import load_dotenv
 from datetime import datetime
-import os
 
 bot = commands.Bot(intents=discord.Intents.all(), command_prefix="")
 
-token = os.environ.get("bot_token")
-channel_id = os.environ.get("channel_id")
+load_dotenv()
+
+token = os.getenv("DISCORD_TOKEN")
+channel_id = os.getenv("CHANNEL_ID")
 
 clap = ":clap_tone5:"
 shame_message_id = 0
