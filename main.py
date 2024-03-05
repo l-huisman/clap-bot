@@ -37,6 +37,8 @@ async def shame_sender(user_id, message):
         await thread.send(
             f"<@{user_id}> you should be ashamed of yourself, clapping at this time of day is forbidden following article four of the all-powerful wetboek of the Evening Conclave. Please desintegrate the clap and yourself immediately. Thank you for your cooperation, have a nice day!"
         )
+        await message.add_reaction("👎")
+        await message.add_reaction("😔")
     return
 
 
@@ -47,7 +49,7 @@ async def clapper():
         await clap(times_to_clap)
 
 
-@commands.Cog.listener()
+@bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
@@ -55,12 +57,11 @@ async def on_message(message):
         return
     times_to_clap = await check_for_clap_amount()
     if times_to_clap == 0:
-        shame_sender(message.author.id)
+        await shame_sender(message.author.id, message)
 
 
 @bot.event
 async def on_ready():
     await clapper.start()
-
 
 bot.run("")
