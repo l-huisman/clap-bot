@@ -1,12 +1,19 @@
+# Comment Eww gross this is a mess
+
+from __future__ import annotations
 import discord
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from clappy_boy import ClappyBoy
+    from message_manager import MessageManager
 
 class EventHandler:
 
-    def __init__(self, bot, channel_id: int, clap_message: str, message_manager, time_manager):
+    def __init__(self, bot: ClappyBoy, channel_id: int, message_manager: MessageManager):
         self.__bot = bot
         self.__channel_id = channel_id
-        self.__clap_message = clap_message
-        self.__time_manager = time_manager
         self.__message_manager = message_manager
 
     async def on_message(self, message: discord.Message) -> None:
