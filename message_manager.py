@@ -8,7 +8,9 @@ class MessageManager:
 
     def __init__(self, bot: commands.Bot, channel_id: int, clap_message: str):
         self.__bot = bot
-        self.__shame_messages = []
+        self.__shame_messages = [
+            " you should be ashamed of yourself, clapping at this time of day is forbidden following article four of the all-powerful wetboek of the Evening Conclave. Please desintegrate the clap and yourself immediately. Thank you for your cooperation, have a nice day!"
+        ]
         self.__channel_id = channel_id
         self.__clap_message = clap_message
         self.__emoji_list = ["👎", "😔", "👀", "🤔", "😂", "🙌", "🔥"]
@@ -23,8 +25,7 @@ class MessageManager:
         user = self.__bot.get_user(user_id)
         if user:
             self.__shame_message = await self.__bot.get_channel(self.__channel_id).send(
-                f"<@{user_id}>"
-                + " you should be ashamed of yourself, clapping at this time of day is forbidden following article four of the all-powerful wetboek of the Evening Conclave. Please desintegrate the clap and yourself immediately. Thank you for your cooperation, have a nice day!"
+                f"<@{user_id}>" + self.get_random_shame_message()
             )
             for emoji in self.__emoji_list:
                 await user_message.add_reaction(emoji)

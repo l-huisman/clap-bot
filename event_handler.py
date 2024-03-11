@@ -1,14 +1,11 @@
 import discord
-from discord.ext import commands
-from time_manager import TimeManager
-from message_manager import MessageManager
-from clappy_boy import ClappyBoy
 
-class EventHandlers:
+class EventHandler:
 
-    def __init__(self, bot: ClappyBoy, channel_id: int, time_manager: TimeManager, message_manager: MessageManager):
+    def __init__(self, bot, channel_id: int, clap_message: str, message_manager, time_manager):
         self.__bot = bot
         self.__channel_id = channel_id
+        self.__clap_message = clap_message
         self.__time_manager = time_manager
         self.__message_manager = message_manager
 

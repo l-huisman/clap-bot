@@ -3,6 +3,9 @@ from datetime import datetime
 
 
 class TimeManager:
+    def __init__(self) -> None:
+        self.__clapped_minute = self.get_current_time()
+
     def get_current_time(self):
         current_time = datetime.now().astimezone(tz=pytz.timezone("Europe/Amsterdam"))
         return current_time.strftime("%H:%M")
@@ -15,3 +18,10 @@ class TimeManager:
             return 1
         else:
             return 0
+
+    def clapped_this_minute(self) -> bool:
+        current_time = self.get_current_time()
+        if current_time != self.__clapped_minute:
+            self.__clapped_minute = current_time
+            return False
+        return True
