@@ -11,8 +11,8 @@ class ClappyBoy(commands.Bot):
         self.__channel_id = channel_id
         self.__time_manager = TimeManager()
         self.__clap_message = ":clap_tone5:"
-        self.__event_handler = EventHandler(self, self.__channel_id, self.__message_manager)
         self.__message_manager = MessageManager(self, self.__channel_id, self.__clap_message)
+        self.__event_handler = EventHandler(self, self.__channel_id, self.__message_manager)
 
     async def check_for_clap_amount(self) -> int:
         current_time = self.__time_manager.get_current_time()
