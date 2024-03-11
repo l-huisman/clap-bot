@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
 from datetime import datetime
+import pytz
 
 load_dotenv()
 
@@ -25,7 +26,7 @@ class ClappyBoy(commands.Bot):
             )
 
     async def check_for_clap_amount(self) -> int:
-        current_time = datetime.now().astimezone().strftime("%H:%M")
+        current_time = datetime.now().astimezone(tz=pytz.timezone('Europe/Amsterdam')).strftime("%H:%M")
         hour, minute = current_time.split(":")[0], current_time.split(":")[1]
         return self.get_claps(current_time, hour, minute)
 
